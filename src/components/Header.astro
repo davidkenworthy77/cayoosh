@@ -1,0 +1,72 @@
+---
+import { normalizePath } from "../lib/site";
+
+interface Props {
+	siteTitle: string;
+	items: { label: string; url: string; target?: string | null }[];
+	/** "dark" = white text over a dark first section; "light" = black text on white. */
+	theme: "dark" | "light";
+}
+const { siteTitle, items, theme } = Astro.props;
+const current = normalizePath(Astro.url.pathname);
+const isActive = (url: string) => url.startsWith("/") && normalizePath(url) === current;
+---
+
+<header class={`header header--${theme}`} data-header>
+	<a href="#page" class="skip-link">Skip to Content</a>
+	<div class="header-inner">
+		<a href="/" class="header-title">{siteTitle}</a>
+		<nav class="header-nav" aria-label="Main">
+			{
+				items.map((item) => (
+					<a
+						href={item.url}
+						target={item.target || undefined}
+						rel={item.target === "_blank" ? "noopener" : undefined}
+						class:list={[isActive(item.url) && "is-active"]}
+						aria-current={isActive(item.url) ? "page" : undefined}
+					>
+						{item.label}
+					</a>
+				))
+			}
+		</nav>
+		<button
+			type="button"
+			class="header-burger"
+			aria-expanded="false"
+			aria-controls="mobile-menu"
+			data-burger
+		>
+			<span class="visually-hidden" data-burger-label>Open Menu</span>
+			<span class="header-burger-line" aria-hidden="true"></span>
+			<span class="header-burger-line" aria-hidden="true"></span>
+		</button>
+	</div>
+	<div class="header-menu" id="mobile-menu" hidden>
+		<nav aria-label="Mobile">
+			{items.map((item) => <a href={item.url}>{item.label}</a>)}
+		</nav>
+	</div>
+</header>
+
+<script>
+	const header = document.querySelector<HTMLElement>("[data-header]");
+	const burger = header?.querySelector<HTMLButtonElement>("[data-burger]");
+	const label = header?.querySelector<HTMLElement>("[data-burger-label]");
+	const menu = header?.querySelector<HTMLElement>("#mobile-menu");
+
+	function setOpen(open: boolean) {
+		if (!header || !burger || !menu) return;
+		header.classList.toggle("header--open", open);
+		document.body.classList.toggle("menu-open", open);
+		burger.setAttribute("aria-expanded", String(open));
+		if (label) label.textContent = open ? "Close Menu" : "Open Menu";
+		menu.hidden = !open;
+	}
+
+	burger?.addEventListener("click", () =>
+		setOpen(burger.getAttribute("aria-expanded") !== "true"),
+	);
+	header?.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => setOpen(false)));
+</script>

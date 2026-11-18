@@ -1,0 +1,74 @@
+---
+import { getMenuWithCacheHint, getSiteSettingsWithCacheHint } from "emdash";
+import { createPublicPageContext } from "emdash/page";
+import { EmDashBodyEnd, EmDashBodyStart, EmDashHead } from "emdash/ui";
+import { Font } from "astro:assets";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import { getSiteDetails } from "../lib/site";
+import "../styles/global.css";
+
+interface Props {
+	/** Page title; omit on the home page to show the site name alone. */
+	title?: string | null;
+	description?: string | null;
+	/** Match the first section: "dark" when the page opens on a photo banner. */
+	headerTheme?: "dark" | "light";
+	robots?: string | null;
+	content?: { collection: string; id: string; slug?: string | null };
+}
+const { title, description, headerTheme = "light", robots, content } = Astro.props;
+
+const [settingsResult, menuResult, detailsResult] = await Promise.all([
+	getSiteSettingsWithCacheHint(),
+	getMenuWithCacheHint("primary"),
+	getSiteDetails(),
+]);
+const settings = settingsResult.data;
+const details = detailsResult.details;
+if (Astro.cache?.enabled) {
+	Astro.cache.set(settingsResult.cacheHint);
+	Astro.cache.set(menuResult.cacheHint);
+	Astro.cache.set(detailsResult.cacheHint);
+}
+
+const siteTitle = settings?.title || "Cayoosh Construction";
+const separator = settings?.seo?.titleSeparator?.trim() || "—";
+const fullTitle = title ? `${title} ${separator} ${siteTitle}` : siteTitle;
+const menuItems = (menuResult.data?.items ?? []).filter((item) => item.label.trim());
+
+const page = createPublicPageContext({
+	Astro,
+	kind: content ? "content" : "custom",
+	pageType: "website",
+	title: fullTitle,
+	pageTitle: title ?? siteTitle,
+	description: description || settings?.tagline || undefined,
+	canonical: new URL(Astro.url.pathname, settings?.url || Astro.url.origin).href,
+	content,
+	seo: { robots },
+	siteName: siteTitle,
+});
+---
+
+<!doctype html>
+<html lang="en-CA">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>{fullTitle}</title>
+		{!settings?.favicon?.url && <link rel="icon" type="image/png" href="/favicon.png" />}
+		<EmDashHead page={page} />
+		<Font cssVariable="--font-heading" preload />
+		<Font cssVariable="--font-body" preload={[{ weight: "400", style: "normal" }]} />
+	</head>
+	<body>
+		<EmDashBodyStart page={page} />
+		<Header siteTitle={siteTitle} items={menuItems} theme={headerTheme} />
+		<main id="page">
+			<slot />
+		</main>
+		<Footer tagline={settings?.tagline} details={details} />
+		<EmDashBodyEnd page={page} />
+	</body>
+</html>

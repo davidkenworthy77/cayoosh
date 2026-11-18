@@ -1,0 +1,19 @@
+---
+import { sanitizeHref } from "emdash";
+import Paragraphs from "../Paragraphs.astro";
+
+const { value } = Astro.props;
+---
+
+<section class="section team-join">
+	<hr class="rule" />
+	<h4>{value.heading}</h4>
+	<Paragraphs text={value.body} />
+	{
+		value.button_label && value.button_url && (
+			<a href={sanitizeHref(value.button_url)} class="button button--medium">
+				{value.button_label}
+			</a>
+		)
+	}
+</section>

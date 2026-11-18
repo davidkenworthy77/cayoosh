@@ -1,0 +1,26 @@
+---
+import { decodeSlug, getEmDashEntry } from "emdash";
+import PageBlocks from "../components/PageBlocks.astro";
+import Base from "../layouts/Base.astro";
+
+const slug = decodeSlug(Astro.params.slug);
+// Page slugs never contain dots, so requests for files such as /favicon.ico
+// go to the 404 page without a database lookup.
+if (!slug || slug.includes(".")) return Astro.rewrite("/404");
+
+const { entry: page, error, cacheHint } = await getEmDashEntry("pages", slug);
+if (error) return new Response("Could not load the page", { status: 500 });
+if (!page) return Astro.rewrite("/404");
+if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
+
+const sections = page.data.sections ?? [];
+---
+
+<Base
+	title={page.data.title}
+	description={page.data.search_description}
+	headerTheme={sections[0]?._type === "hero" ? "dark" : "light"}
+	content={{ collection: "pages", id: page.data.id, slug: page.id }}
+>
+	<PageBlocks value={sections} />
+</Base>

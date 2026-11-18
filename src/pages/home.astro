@@ -1,0 +1,7 @@
+---
+// The Squarespace site also served the homepage at /home, and the pages
+// collection's "/{slug}" pattern gives the Home entry this URL. It renders at "/".
+// Keep the query string so signed preview links still work.
+const target = Astro.url.search ? `/?${Astro.url.search.slice(1)}` : "/";
+return Astro.redirect(target, 301);
+---

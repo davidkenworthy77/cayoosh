@@ -1,0 +1,29 @@
+---
+import ImageCard from "../ImageCard.astro";
+import Img from "../Img.astro";
+import Paragraphs from "../Paragraphs.astro";
+
+const { value, index } = Astro.props;
+const steps = value.steps ?? [];
+// The numeral graphics step across the page: left, right, left.
+const positions = ["one", "two", "three"];
+const sizes = ["50vw", "55vw", "42vw"];
+---
+
+<section class="section container--wide process">
+	{value.heading && <h3 class="process-title">{value.heading}</h3>}
+	{
+		steps.map((step: any, i: number) => (
+			<>
+				{step.number_image && (
+					<div class={`process-number process-number--${positions[i % 3]}`}>
+						<Img image={step.number_image} sizes={sizes[i % 3]} priority={index === 0 && i === 0} />
+					</div>
+				)}
+				<ImageCard image={step.image} title={step.title} reverse={i % 2 === 1}>
+					<Paragraphs text={step.body} />
+				</ImageCard>
+			</>
+		))
+	}
+</section>

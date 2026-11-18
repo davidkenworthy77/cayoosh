@@ -1,0 +1,47 @@
+---
+import { Blocks, defineBlockComponents } from "emdash/ui";
+import type { PageSectionsBlock } from "../../emdash-env";
+import Badges from "./blocks/Badges.astro";
+import Collage from "./blocks/Collage.astro";
+import ContactDetails from "./blocks/ContactDetails.astro";
+import ContactForm from "./blocks/ContactForm.astro";
+import Cta from "./blocks/Cta.astro";
+import Feature from "./blocks/Feature.astro";
+import FeatureCards from "./blocks/FeatureCards.astro";
+import Hero from "./blocks/Hero.astro";
+import Intro from "./blocks/Intro.astro";
+import Marquee from "./blocks/Marquee.astro";
+import Notice from "./blocks/Notice.astro";
+import Process from "./blocks/Process.astro";
+import ProjectsGrid from "./blocks/ProjectsGrid.astro";
+import Quote from "./blocks/Quote.astro";
+import Team from "./blocks/Team.astro";
+import Testimonial from "./blocks/Testimonial.astro";
+
+/** Renders a page's "Sections" field: one component per block type, in the editor's order. */
+interface Props {
+	value?: PageSectionsBlock[] | null;
+}
+const { value } = Astro.props;
+
+const components = defineBlockComponents<PageSectionsBlock>({
+	hero: Hero,
+	marquee: Marquee,
+	intro: Intro,
+	collage: Collage,
+	testimonial: Testimonial,
+	cta: Cta,
+	process: Process,
+	feature_cards: FeatureCards,
+	quote: Quote,
+	feature: Feature,
+	team: Team,
+	notice: Notice,
+	contact_form: ContactForm,
+	contact_details: ContactDetails,
+	badges: Badges,
+	projects_grid: ProjectsGrid,
+});
+---
+
+<Blocks {value} components={components} />

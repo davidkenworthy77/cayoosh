@@ -1,0 +1,10 @@
+---
+import { toParagraphs } from "../lib/site";
+
+interface Props {
+	text?: string | null;
+}
+const paragraphs = toParagraphs(Astro.props.text);
+---
+
+{paragraphs.map((lines) => <p>{lines.map((line, i) => <>{i > 0 && <br />}{line}</>)}</p>)}

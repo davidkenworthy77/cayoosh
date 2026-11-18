@@ -1,0 +1,16 @@
+---
+import Img from "../Img.astro";
+import Paragraphs from "../Paragraphs.astro";
+
+const { value } = Astro.props;
+---
+
+<section class="section home-intro">
+	<div class="home-intro-image">
+		<Img image={value.image} fill sizes="(max-width: 767px) 100vw, 34vw" />
+	</div>
+	<div class="home-intro-text">
+		{value.heading && <h3>{value.heading}</h3>}
+		<Paragraphs text={value.body} />
+	</div>
+</section>

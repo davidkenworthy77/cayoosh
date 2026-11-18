@@ -1,0 +1,27 @@
+---
+import type { MediaValue } from "emdash";
+import { Image } from "emdash/ui";
+
+interface Props {
+	image?: MediaValue | null;
+	/** Fill the nearest positioned ancestor (cover-cropped photos). */
+	fill?: boolean;
+	sizes?: string;
+	class?: string;
+	/** Load eagerly; only for the main photo at the top of a page. */
+	priority?: boolean;
+}
+const { image, fill = false, sizes = "100vw", class: className, priority = false } = Astro.props;
+---
+
+{
+	image && (
+		<Image
+			image={image}
+			alt={image.alt ?? ""}
+			sizes={sizes}
+			priority={priority}
+			class:list={[className, fill && "img-fill"]}
+		/>
+	)
+}

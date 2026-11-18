@@ -1,0 +1,15 @@
+---
+import Img from "../Img.astro";
+
+const { value } = Astro.props;
+---
+
+<section class="section container--medium home-testimonial">
+	<div class="home-testimonial-text">
+		<h4>{value.quote}</h4>
+		{value.attribution && <p>{value.attribution}</p>}
+	</div>
+	<div class="home-testimonial-image">
+		<Img image={value.image} sizes="(max-width: 767px) 100vw, 33vw" />
+	</div>
+</section>

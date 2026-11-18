@@ -1,0 +1,62 @@
+---
+import { getSiteDetails } from "../../lib/site";
+
+/**
+ * Same fields as the Squarespace form. Squarespace handled delivery itself, so
+ * for now submitting opens the visitor's email app with the message filled in.
+ * TODO: replace with a real form backend (API route + email service).
+ */
+const { value } = Astro.props;
+const { details, cacheHint } = await getSiteDetails();
+if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
+const email = details?.email ?? "";
+---
+
+<section class="section container--narrow contact-form">
+	{value.heading && <h4>{value.heading}</h4>}
+	{value.subheading && <h4>{value.subheading}</h4>}
+	<form class="form" data-contact-form data-email={email}>
+		<fieldset class="form-name">
+			<legend>Name</legend>
+			<label>
+				<span class="form-caption">First Name <span class="form-required">(required)</span></span>
+				<input type="text" name="fname" autocomplete="given-name" required />
+			</label>
+			<label>
+				<span class="form-caption">Last Name <span class="form-required">(required)</span></span>
+				<input type="text" name="lname" autocomplete="family-name" required />
+			</label>
+		</fieldset>
+		<label class="form-field">
+			<span>Email <span class="form-required">(required)</span></span>
+			<input type="email" name="email" autocomplete="email" required />
+		</label>
+		<label class="form-field">
+			<span>Message <span class="form-required">(required)</span></span>
+			<textarea name="message" required></textarea>
+		</label>
+		<div class="form-actions">
+			<button type="submit" class="button button--medium">SUBMIT</button>
+		</div>
+		<p class="form-note" role="status" hidden>
+			Your email app should have opened with your message. If it didn’t, email us at {email}.
+		</p>
+	</form>
+</section>
+
+<script>
+	document.querySelectorAll<HTMLFormElement>("[data-contact-form]").forEach((form) => {
+		form.addEventListener("submit", (event) => {
+			event.preventDefault();
+			const data = new FormData(form);
+			const name = `${data.get("fname")} ${data.get("lname")}`.trim();
+			const subject = `Website enquiry from ${name}`;
+			const body = `${data.get("message")}\n\n${name}\n${data.get("email")}`;
+			window.location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent(
+				subject,
+			)}&body=${encodeURIComponent(body)}`;
+			const note = form.querySelector<HTMLElement>(".form-note");
+			if (note) note.hidden = false;
+		});
+	});
+</script>

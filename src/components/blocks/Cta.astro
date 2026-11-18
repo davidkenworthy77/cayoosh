@@ -1,0 +1,12 @@
+---
+import GetInTouch from "../GetInTouch.astro";
+
+const { value } = Astro.props;
+---
+
+<GetInTouch
+	heading={value.heading}
+	body={value.body}
+	buttonLabel={value.button_label}
+	buttonUrl={value.button_url}
+/>

@@ -1,0 +1,30 @@
+---
+import { sanitizeHref } from "emdash";
+import Img from "../Img.astro";
+
+const { value } = Astro.props;
+const items = (value.items ?? []).filter((item: any) => item.image);
+// "large" and "strip" crop the logo to a fixed box; "small" shows it whole.
+const sizeClass: Record<string, string> = {
+	small: "badge--small",
+	large: "badge--large",
+	strip: "badge--small badge--energuide",
+};
+---
+
+<section class="section container--medium contact-badges">
+	{
+		items.map((item: any) => {
+			const size = item.size in sizeClass ? item.size : "small";
+			const Wrap = item.link_url ? "a" : "span";
+			const linkProps = item.link_url
+				? { href: sanitizeHref(item.link_url), target: "_blank", rel: "noopener" }
+				: {};
+			return (
+				<Wrap class={`badge ${sizeClass[size]}`} {...linkProps}>
+					<Img image={item.image} fill={size !== "small"} sizes={size === "large" ? "310px" : "140px"} />
+				</Wrap>
+			);
+		})
+	}
+</section>

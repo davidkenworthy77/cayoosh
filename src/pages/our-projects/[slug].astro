@@ -1,0 +1,82 @@
+---
+import { decodeSlug, getEmDashEntry } from "emdash";
+import Gallery from "../../components/Gallery.astro";
+import GetInTouch from "../../components/GetInTouch.astro";
+import Base from "../../layouts/Base.astro";
+import { getProjects, getSiteDetails } from "../../lib/site";
+
+const slug = decodeSlug(Astro.params.slug);
+if (!slug || slug.includes(".")) return Astro.rewrite("/404");
+
+const [projectResult, projectsResult, detailsResult] = await Promise.all([
+	getEmDashEntry("projects", slug),
+	getProjects(),
+	getSiteDetails(),
+]);
+if (projectResult.error) return new Response("Could not load the project", { status: 500 });
+const project = projectResult.entry;
+if (!project) return Astro.rewrite("/404");
+if (Astro.cache?.enabled) {
+	Astro.cache.set(projectResult.cacheHint);
+	Astro.cache.set(projectsResult.cacheHint);
+	Astro.cache.set(detailsResult.cacheHint);
+}
+
+// Previous and next follow the same order as the projects grid.
+const { projects } = projectsResult;
+const position = projects.findIndex((item) => item.id === project.id);
+const previous = position > 0 ? projects[position - 1] : undefined;
+const next = position >= 0 ? projects[position + 1] : undefined;
+
+const { title, heading, intro, search_title, search_description } = project.data;
+const layout = project.data.gallery_layout === "masonry" ? "masonry" : "grid";
+const images = (project.data.gallery ?? []).flatMap((item) => (item.image ? [item.image] : []));
+const details = detailsResult.details;
+---
+
+<Base
+	title={search_title || title}
+	description={search_description || intro}
+	content={{ collection: "projects", id: project.data.id, slug: project.id }}
+>
+	<section class={`section project-intro project-intro--${layout}`}>
+		<h4>{heading || title}</h4>
+		{intro && <h3>{intro}</h3>}
+	</section>
+
+	{images.length > 0 && <Gallery images={images} layout={layout} />}
+
+	<GetInTouch
+		heading={details?.cta_heading}
+		body={details?.cta_body}
+		buttonLabel={details?.cta_button_label}
+		buttonUrl={details?.cta_button_url}
+	/>
+
+	<nav class="pagination" aria-label="Projects">
+		{
+			previous ? (
+				<a href={`/our-projects/${previous.id}`} class="pagination-link pagination-link--prev">
+					<svg viewBox="0 0 23 48" width="23" height="48" aria-hidden="true">
+						<path d="M21.5 1.5l-20 22.500 20 22.500" stroke="currentColor" fill="none" />
+					</svg>
+					<span class="visually-hidden">Previous</span>
+					<h2>{previous.data.title}</h2>
+				</a>
+			) : (
+				<span />
+			)
+		}
+		{
+			next && (
+				<a href={`/our-projects/${next.id}`} class="pagination-link pagination-link--next">
+					<span class="visually-hidden">Next</span>
+					<h2>{next.data.title}</h2>
+					<svg viewBox="0 0 23 48" width="23" height="48" aria-hidden="true">
+						<path d="M1.5 1.5l20 22.500-20 22.500" stroke="currentColor" fill="none" />
+					</svg>
+				</a>
+			)
+		}
+	</nav>
+</Base>

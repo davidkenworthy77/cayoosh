@@ -1,0 +1,18 @@
+---
+import Img from "../Img.astro";
+import Paragraphs from "../Paragraphs.astro";
+
+const { value, index } = Astro.props;
+const sizes = "(max-width: 767px) 100vw, 46vw";
+---
+
+<section class="section team">
+	<div class="team-col">
+		{value.heading && <h3>{value.heading}</h3>}
+		<Paragraphs text={value.body} />
+		<Img image={value.image_one} sizes={sizes} priority={index === 0} />
+	</div>
+	<div class="team-col team-col--offset">
+		<Img image={value.image_two} sizes={sizes} priority={index === 0} />
+	</div>
+</section>

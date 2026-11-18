@@ -1,0 +1,31 @@
+---
+import { sanitizeHref } from "emdash";
+
+const { value } = Astro.props;
+const items: string[] = (value.items ?? []).map((item: { text?: string }) => item.text?.trim()).filter(Boolean);
+const Track = value.link_url ? "a" : "div";
+const linkProps = value.link_url
+	? { href: sanitizeHref(value.link_url), target: "_blank", rel: "noopener" }
+	: {};
+---
+
+{
+	items.length > 0 && (
+		<section class="marquee section--dark">
+			<Track class="marquee-track" aria-label={`${items.join(" • ")} •`} {...linkProps}>
+				{[0, 1].map(() => (
+					<span class="marquee-run" aria-hidden="true">
+						{[0, 1, 2].map(() =>
+							items.map((item) => (
+								<span class="marquee-item">
+									{item}
+									<span class="marquee-dot">•</span>
+								</span>
+							)),
+						)}
+					</span>
+				))}
+			</Track>
+		</section>
+	)
+}

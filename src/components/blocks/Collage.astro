@@ -1,0 +1,25 @@
+---
+import { sanitizeHref } from "emdash";
+import Img from "../Img.astro";
+
+const { value } = Astro.props;
+const Wrap = value.link_url ? "a" : "div";
+const linkProps = value.link_url ? { href: sanitizeHref(value.link_url) } : {};
+const wide = "(max-width: 767px) 100vw, 40vw";
+---
+
+<section class="section container--medium home-collage">
+	<div class="home-collage-col">
+		{value.image_one && <Wrap {...linkProps}><Img image={value.image_one} sizes={wide} /></Wrap>}
+		{value.image_two && <Wrap {...linkProps}><Img image={value.image_two} sizes={wide} /></Wrap>}
+	</div>
+	<div class="home-collage-col">
+		{
+			value.image_three && (
+				<Wrap {...linkProps}>
+					<Img image={value.image_three} sizes="(max-width: 767px) 100vw, 28vw" />
+				</Wrap>
+			)
+		}
+	</div>
+</section>

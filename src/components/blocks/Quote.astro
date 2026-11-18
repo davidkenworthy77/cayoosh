@@ -1,0 +1,14 @@
+---
+const { value } = Astro.props;
+// Quote marks are added here, so strip any the editor typed.
+const quote = (value.quote ?? "").trim().replace(/^[“"]+|[”"]+$/g, "");
+---
+
+<section class="section quote-section">
+	<hr class="rule" />
+	<figure class="quote">
+		<blockquote><span>“</span>{quote}<span>”</span></blockquote>
+		{value.attribution && <figcaption>{value.attribution}</figcaption>}
+	</figure>
+	<hr class="rule" />
+</section>

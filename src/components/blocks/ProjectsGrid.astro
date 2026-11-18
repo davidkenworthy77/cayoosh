@@ -1,0 +1,29 @@
+---
+import Img from "../Img.astro";
+import { getProjects } from "../../lib/site";
+
+const { value } = Astro.props;
+const { projects, cacheHint } = await getProjects();
+if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
+---
+
+{
+	value.intro && (
+		<section class="section projects-intro">
+			<h3>{value.intro}</h3>
+		</section>
+	)
+}
+
+<section class="projects-grid">
+	{
+		projects.map((project, i) => (
+			<a href={`/our-projects/${project.id}`} class="projects-grid-item">
+				<Img image={project.data.cover} fill sizes="(max-width: 767px) 100vw, 46vw" priority={i < 2} />
+				<div class="projects-grid-overlay">
+					<h3>{project.data.title}</h3>
+				</div>
+			</a>
+		))
+	}
+</section>

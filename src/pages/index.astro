@@ -1,0 +1,32 @@
+---
+import { getEmDashEntry } from "emdash";
+import PageBlocks from "../components/PageBlocks.astro";
+import Base from "../layouts/Base.astro";
+
+// The home page is the Pages entry with the slug "home".
+const { entry: page, error, cacheHint } = await getEmDashEntry("pages", "home");
+if (error) return new Response("Could not load the home page", { status: 500 });
+if (Astro.cache?.enabled) {
+	Astro.cache.set(cacheHint);
+	// A missing entry carries no tags, so publishing it later wouldn't clear the cache.
+	if (!page) Astro.cache.set({ tags: ["pages"] });
+}
+const sections = page?.data.sections ?? [];
+---
+
+<Base
+	description={page?.data.search_description}
+	headerTheme={sections[0]?._type === "hero" ? "dark" : "light"}
+	content={page ? { collection: "pages", id: page.data.id, slug: page.id } : undefined}
+>
+	<PageBlocks value={sections} />
+	{
+		!page && (
+			<section class="section cta">
+				<h3>No home page yet</h3>
+				<p>Create and publish a page with the slug “home” in the admin.</p>
+				<a href="/_emdash/admin/content/pages" class="button button--large">Open the admin</a>
+			</section>
+		)
+	}
+</Base>

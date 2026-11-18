@@ -1,0 +1,24 @@
+---
+import { sanitizeHref } from "emdash";
+
+/** Centred call to action. Used as a page block and at the foot of every project page. */
+interface Props {
+	heading?: string | null;
+	body?: string | null;
+	buttonLabel?: string | null;
+	buttonUrl?: string | null;
+}
+const { heading, body, buttonLabel, buttonUrl } = Astro.props;
+---
+
+<section class="section cta">
+	{heading && <h3>{heading}</h3>}
+	{body && <p>{body}</p>}
+	{
+		buttonLabel && buttonUrl && (
+			<a href={sanitizeHref(buttonUrl)} class="button button--large">
+				{buttonLabel}
+			</a>
+		)
+	}
+</section>

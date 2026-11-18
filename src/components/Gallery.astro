@@ -1,0 +1,107 @@
+---
+import type { MediaValue } from "emdash";
+import Img from "./Img.astro";
+import { mediaUrl } from "../lib/site";
+
+interface Props {
+	images: MediaValue[];
+	layout: "masonry" | "grid";
+}
+const { images, layout } = Astro.props;
+const items = images.map((image, index) => ({ image, index, full: mediaUrl(image) }));
+type Item = (typeof items)[number];
+
+/** Split items into two columns, always adding to the shorter one (masonry). */
+function toColumns(list: Item[]) {
+	const columns: Item[][] = [[], []];
+	const heights = [0, 0];
+	for (const item of list) {
+		const { width, height } = item.image;
+		const target = heights[0] <= heights[1] ? 0 : 1;
+		columns[target].push(item);
+		heights[target] += (width && height ? height / width : 0.667) + 0.105; // + gap, relative to column width
+	}
+	return columns;
+}
+---
+
+<section class={`gallery gallery--${layout}`} data-gallery>
+	{
+		layout === "masonry"
+			? toColumns(items).map((column) => (
+					<div class="gallery-column">
+						{column.map((item) => (
+							<button type="button" class="gallery-item" data-index={item.index} data-full={item.full}>
+								<Img image={item.image} sizes="(max-width: 767px) 100vw, 46vw" />
+								<span class="visually-hidden">View fullsize</span>
+							</button>
+						))}
+					</div>
+				))
+			: items.map((item) => (
+					<button type="button" class="gallery-item" data-index={item.index} data-full={item.full}>
+						<Img image={item.image} sizes="(max-width: 767px) 100vw, 46vw" />
+						<span class="visually-hidden">View fullsize</span>
+					</button>
+				))
+	}
+
+	<div class="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer" hidden>
+		<button type="button" class="lightbox-close" aria-label="Close" data-close>
+			<svg viewBox="0 0 40 40" width="40" height="40" aria-hidden="true">
+				<path d="M10 10l20 20M30 10L10 30" stroke="currentColor" fill="none"></path>
+			</svg>
+		</button>
+		<button type="button" class="lightbox-arrow lightbox-arrow--prev" aria-label="Previous" data-step="-1">
+			<svg viewBox="0 0 44 18" width="44" height="18" aria-hidden="true">
+				<path d="M9 1L1 9l8 8M2 9h42" stroke="currentColor" fill="none"></path>
+			</svg>
+		</button>
+		<div class="lightbox-stage" data-close>
+			<img class="img-fill" alt="" />
+		</div>
+		<button type="button" class="lightbox-arrow lightbox-arrow--next" aria-label="Next" data-step="1">
+			<svg viewBox="0 0 44 18" width="44" height="18" aria-hidden="true">
+				<path d="M35 1l8 8-8 8M42 9H0" stroke="currentColor" fill="none"></path>
+			</svg>
+		</button>
+	</div>
+</section>
+
+<script>
+	document.querySelectorAll<HTMLElement>("[data-gallery]").forEach((gallery) => {
+		const lightbox = gallery.querySelector<HTMLElement>(".lightbox");
+		const stage = lightbox?.querySelector<HTMLImageElement>(".lightbox-stage img");
+		const thumbs = [...gallery.querySelectorAll<HTMLButtonElement>(".gallery-item")].sort(
+			(a, b) => Number(a.dataset.index) - Number(b.dataset.index),
+		);
+		if (!lightbox || !stage || thumbs.length === 0) return;
+		let current: number | null = null;
+
+		function show(index: number | null) {
+			current = index;
+			lightbox!.hidden = index === null;
+			document.body.classList.toggle("menu-open", index !== null);
+			if (index === null) {
+				stage!.removeAttribute("src");
+				return;
+			}
+			stage!.src = thumbs[index].dataset.full ?? "";
+		}
+		const step = (delta: number) => {
+			if (current !== null) show((current + delta + thumbs.length) % thumbs.length);
+		};
+
+		thumbs.forEach((thumb, index) => thumb.addEventListener("click", () => show(index)));
+		lightbox.querySelectorAll("[data-close]").forEach((el) => el.addEventListener("click", () => show(null)));
+		lightbox
+			.querySelectorAll<HTMLElement>("[data-step]")
+			.forEach((el) => el.addEventListener("click", () => step(Number(el.dataset.step))));
+		document.addEventListener("keydown", (event) => {
+			if (current === null) return;
+			if (event.key === "Escape") show(null);
+			if (event.key === "ArrowRight") step(1);
+			if (event.key === "ArrowLeft") step(-1);
+		});
+	});
+</script>

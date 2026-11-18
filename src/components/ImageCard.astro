@@ -1,0 +1,26 @@
+---
+import type { MediaValue } from "emdash";
+import Img from "./Img.astro";
+
+/** Photo with an overlapping text card beside it. */
+interface Props {
+	image?: MediaValue | null;
+	title?: string | null;
+	titleTag?: "h3" | "h4";
+	/** Put the photo on the right. */
+	reverse?: boolean;
+	/** Narrower photo column for portrait images. */
+	portrait?: boolean;
+}
+const { image, title, titleTag: Title = "h4", reverse = false, portrait = false } = Astro.props;
+---
+
+<div class:list={["image-card", reverse && "image-card--reverse", portrait && "image-card--portrait"]}>
+	<div class="image-card-media">
+		<Img image={image} sizes="(max-width: 767px) 100vw, 45vw" />
+	</div>
+	<div class="image-card-text">
+		{title && <Title>{title}</Title>}
+		<slot />
+	</div>
+</div>

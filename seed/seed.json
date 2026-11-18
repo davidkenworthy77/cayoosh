@@ -1,0 +1,1706 @@
+{
+	"$schema": "https://emdashcms.com/seed.schema.json",
+	"version": "1",
+	"meta": {
+		"name": "Cayoosh Construction",
+		"description": "Pages, projects and site details for cayoosh.ca",
+		"author": "Cayoosh Construction"
+	},
+	"settings": {
+		"title": "Cayoosh Construction",
+		"tagline": "Conscious Architecture Meets High Performance Building",
+		"url": "https://www.cayoosh.ca",
+		"timezone": "America/Vancouver",
+		"seo": {
+			"titleSeparator": "—"
+		}
+	},
+	"blockTypes": [
+		{
+			"slug": "hero",
+			"label": "Photo banner",
+			"description": "Full-width photo with a heading over it. First on a page, it sits behind the menu.",
+			"icon": "image",
+			"category": "Sections",
+			"currentVersion": 1,
+			"versions": [
+				{
+					"version": 1,
+					"fields": [
+						{
+							"slug": "heading",
+							"label": "Heading",
+							"type": "text",
+							"required": true
+						},
+						{
+							"slug": "attribution",
+							"label": "Attribution",
+							"type": "string"
+						},
+						{
+							"slug": "image",
+							"label": "Photo",
+							"type": "image"
+						},
+						{
+							"slug": "style",
+							"label": "Style",
+							"type": "select",
+							"defaultValue": "title",
+							"validation": {
+								"options": [
+									"banner",
+									"title",
+									"title-short",
+									"quote"
+								]
+							}
+						},
+						{
+							"slug": "overlay",
+							"label": "Photo darkening (%)",
+							"type": "integer",
+							"defaultValue": 15,
+							"validation": {
+								"min": 0,
+								"max": 90
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"slug": "marquee",
+			"label": "News ticker",
+			"description": "Scrolling strip of short headlines that links somewhere.",
+			"icon": "megaphone",
+			"category": "Sections",
+			"currentVersion": 1,
+			"versions": [
+				{
+					"version": 1,
+					"fields": [
+						{
+							"slug": "items",
+							"label": "Headlines",
+							"type": "repeater",
+							"validation": {
+								"subFields": [
+									{
+										"slug": "text",
+										"label": "Headline",
+										"type": "string",
+										"required": true
+									}
+								]
+							}
+						},
+						{
+							"slug": "link_url",
+							"label": "Link",
+							"type": "url"
+						}
+					]
+				}
+			]
+		},
+		{
+			"slug": "intro",
+			"label": "Photo and text",
+			"description": "A tall photo on the left with a heading and paragraph beside it.",
+			"icon": "article",
+			"category": "Sections",
+			"currentVersion": 1,
+			"versions": [
+				{
+					"version": 1,
+					"fields": [
+						{
+							"slug": "heading",
+							"label": "Heading",
+							"type": "string"
+						},
+						{
+							"slug": "body",
+							"label": "Text",
+							"type": "text"
+						},
+						{
+							"slug": "image",
+							"label": "Photo",
+							"type": "image"
+						}
+					]
+				}
+			]
+		},
+		{
+			"slug": "collage",
+			"label": "Photo collage",
+			"description": "Two stacked photos beside one tall photo, all linking to one page.",
+			"icon": "squares-four",
+			"category": "Sections",
+			"currentVersion": 1,
+			"versions": [
+				{
+					"version": 1,
+					"fields": [
+						{
+							"slug": "image_one",
+							"label": "Top left photo",
+							"type": "image"
+						},
+						{
+							"slug": "image_two",
+							"label": "Bottom left photo",
+							"type": "image"
+						},
+						{
+							"slug": "image_three",
+							"label": "Right photo",
+							"type": "image"
+						},
+						{
+							"slug": "link_url",
+							"label": "Link",
+							"type": "url"
+						}
+					]
+				}
+			]
+		},
+		{
+			"slug": "testimonial",
+			"label": "Testimonial with photo",
+			"description": "A client quote on the left and a photo on the right.",
+			"icon": "quotes",
+			"category": "Sections",
+			"currentVersion": 1,
+			"versions": [
+				{
+					"version": 1,
+					"fields": [
+						{
+							"slug": "quote",
+							"label": "Quote",
+							"type": "text",
+							"required": true
+						},
+						{
+							"slug": "attribution",
+							"label": "Attribution",
+							"type": "string"
+						},
+						{
+							"slug": "image",
+							"label": "Photo",
+							"type": "image"
+						}
+					]
+				}
+			]
+		},
+		{
+			"slug": "cta",
+			"label": "Call to action",
+			"description": "Centred heading, a sentence and a large button.",
+			"icon": "cursor-click",
+			"category": "Sections",
+			"currentVersion": 1,
+			"versions": [
+				{
+					"version": 1,
+					"fields": [
+						{
+							"slug": "heading",
+							"label": "Heading",
+							"type": "string",
+							"required": true
+						},
+						{
+							"slug": "body",
+							"label": "Text",
+							"type": "text"
+						},
+						{
+							"slug": "button_label",
+							"label": "Button",
+							"type": "string"
+						},
+						{
+							"slug": "button_url",
+							"label": "Button link",
+							"type": "url"
+						}
+					]
+				}
+			]
+		},
+		{
+			"slug": "process",
+			"label": "Numbered steps",
+			"description": "A titled run of steps, each with a numeral graphic, a photo and text.",
+			"icon": "list-numbers",
+			"category": "Sections",
+			"currentVersion": 1,
+			"versions": [
+				{
+					"version": 1,
+					"fields": [
+						{
+							"slug": "heading",
+							"label": "Heading",
+							"type": "string"
+						},
+						{
+							"slug": "steps",
+							"label": "Steps",
+							"type": "repeater",
+							"validation": {
+								"subFields": [
+									{
+										"slug": "title",
+										"label": "Title",
+										"type": "string",
+										"required": true
+									},
+									{
+										"slug": "body",
+										"label": "Text",
+										"type": "text"
+									},
+									{
+										"slug": "image",
+										"label": "Photo",
+										"type": "image"
+									},
+									{
+										"slug": "number_image",
+										"label": "Numeral graphic",
+										"type": "image"
+									}
+								]
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"slug": "feature_cards",
+			"label": "Photo cards",
+			"description": "Photos with overlapping text cards, alternating sides, with a rule between them.",
+			"icon": "cards",
+			"category": "Sections",
+			"currentVersion": 1,
+			"versions": [
+				{
+					"version": 1,
+					"fields": [
+						{
+							"slug": "cards",
+							"label": "Cards",
+							"type": "repeater",
+							"validation": {
+								"subFields": [
+									{
+										"slug": "title",
+										"label": "Title",
+										"type": "string",
+										"required": true
+									},
+									{
+										"slug": "body",
+										"label": "Text",
+										"type": "text"
+									},
+									{
+										"slug": "image",
+										"label": "Photo",
+										"type": "image"
+									}
+								]
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"slug": "quote",
+			"label": "Large quote",
+			"description": "A large centred quote between two rules.",
+			"icon": "quotes",
+			"category": "Sections",
+			"currentVersion": 1,
+			"versions": [
+				{
+					"version": 1,
+					"fields": [
+						{
+							"slug": "quote",
+							"label": "Quote",
+							"type": "text",
+							"required": true
+						},
+						{
+							"slug": "attribution",
+							"label": "Attribution",
+							"type": "string"
+						}
+					]
+				}
+			]
+		},
+		{
+			"slug": "feature",
+			"label": "Feature with button",
+			"description": "One portrait photo with a text card and a button.",
+			"icon": "star",
+			"category": "Sections",
+			"currentVersion": 1,
+			"versions": [
+				{
+					"version": 1,
+					"fields": [
+						{
+							"slug": "title",
+							"label": "Title",
+							"type": "string",
+							"required": true
+						},
+						{
+							"slug": "body",
+							"label": "Text",
+							"type": "text"
+						},
+						{
+							"slug": "image",
+							"label": "Photo",
+							"type": "image"
+						},
+						{
+							"slug": "button_label",
+							"label": "Button",
+							"type": "string"
+						},
+						{
+							"slug": "button_url",
+							"label": "Button link",
+							"type": "url"
+						}
+					]
+				}
+			]
+		},
+		{
+			"slug": "team",
+			"label": "Team introduction",
+			"description": "Heading and paragraphs with a photo below, and a second photo on the right.",
+			"icon": "users-three",
+			"category": "Sections",
+			"currentVersion": 1,
+			"versions": [
+				{
+					"version": 1,
+					"fields": [
+						{
+							"slug": "heading",
+							"label": "Heading",
+							"type": "string"
+						},
+						{
+							"slug": "body",
+							"label": "Text",
+							"type": "text"
+						},
+						{
+							"slug": "image_one",
+							"label": "Photo under the text",
+							"type": "image"
+						},
+						{
+							"slug": "image_two",
+							"label": "Photo on the right",
+							"type": "image"
+						}
+					]
+				}
+			]
+		},
+		{
+			"slug": "notice",
+			"label": "Notice with button",
+			"description": "A rule, a heading, a paragraph and a button.",
+			"icon": "megaphone-simple",
+			"category": "Sections",
+			"currentVersion": 1,
+			"versions": [
+				{
+					"version": 1,
+					"fields": [
+						{
+							"slug": "heading",
+							"label": "Heading",
+							"type": "string",
+							"required": true
+						},
+						{
+							"slug": "body",
+							"label": "Text",
+							"type": "text"
+						},
+						{
+							"slug": "button_label",
+							"label": "Button",
+							"type": "string"
+						},
+						{
+							"slug": "button_url",
+							"label": "Button link",
+							"type": "url"
+						}
+					]
+				}
+			]
+		},
+		{
+			"slug": "contact_form",
+			"label": "Contact form",
+			"description": "The enquiry form, with two heading lines above it.",
+			"icon": "envelope-simple",
+			"category": "Sections",
+			"currentVersion": 1,
+			"versions": [
+				{
+					"version": 1,
+					"fields": [
+						{
+							"slug": "heading",
+							"label": "Heading",
+							"type": "string"
+						},
+						{
+							"slug": "subheading",
+							"label": "Second heading line",
+							"type": "string"
+						}
+					]
+				}
+			]
+		},
+		{
+			"slug": "contact_details",
+			"label": "Contact details",
+			"description": "Location, opening hours, phone and email. Location, phone and email come from Site details.",
+			"icon": "map-pin",
+			"category": "Sections",
+			"currentVersion": 1,
+			"versions": [
+				{
+					"version": 1,
+					"fields": [
+						{
+							"slug": "hours_heading",
+							"label": "Hours heading",
+							"type": "string"
+						},
+						{
+							"slug": "hours",
+							"label": "Hours",
+							"type": "text"
+						}
+					]
+				}
+			]
+		},
+		{
+			"slug": "badges",
+			"label": "Accreditation logos",
+			"description": "A row of logos, each linking to the accrediting body.",
+			"icon": "seal-check",
+			"category": "Sections",
+			"currentVersion": 1,
+			"versions": [
+				{
+					"version": 1,
+					"fields": [
+						{
+							"slug": "items",
+							"label": "Logos",
+							"type": "repeater",
+							"validation": {
+								"subFields": [
+									{
+										"slug": "image",
+										"label": "Logo",
+										"type": "image"
+									},
+									{
+										"slug": "link_url",
+										"label": "Link",
+										"type": "url"
+									},
+									{
+										"slug": "size",
+										"label": "Size",
+										"type": "select",
+										"options": [
+											"small",
+											"large",
+											"strip"
+										]
+									}
+								]
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"slug": "projects_grid",
+			"label": "Projects grid",
+			"description": "An introduction followed by every published project.",
+			"icon": "grid-four",
+			"category": "Sections",
+			"currentVersion": 1,
+			"versions": [
+				{
+					"version": 1,
+					"fields": [
+						{
+							"slug": "intro",
+							"label": "Introduction",
+							"type": "text"
+						}
+					]
+				}
+			]
+		}
+	],
+	"collections": [
+		{
+			"slug": "pages",
+			"label": "Pages",
+			"labelSingular": "Page",
+			"description": "Every page of the site. The page with the slug “home” is the home page; the rest live at /{slug}.",
+			"icon": "file-text",
+			"sortOrder": 1,
+			"supports": [
+				"drafts",
+				"revisions",
+				"preview",
+				"search"
+			],
+			"urlPattern": "/{slug}",
+			"fields": [
+				{
+					"slug": "title",
+					"label": "Title",
+					"type": "string",
+					"required": true,
+					"searchable": true
+				},
+				{
+					"slug": "search_description",
+					"label": "Search description",
+					"type": "text",
+					"options": {
+						"rows": 4
+					}
+				},
+				{
+					"slug": "sections",
+					"label": "Sections",
+					"type": "blocks",
+					"validation": {
+						"allowedTypes": [
+							"hero",
+							"marquee",
+							"intro",
+							"collage",
+							"testimonial",
+							"cta",
+							"process",
+							"feature_cards",
+							"quote",
+							"feature",
+							"team",
+							"notice",
+							"contact_form",
+							"contact_details",
+							"badges",
+							"projects_grid"
+						],
+						"maxItems": 30
+					}
+				}
+			]
+		},
+		{
+			"slug": "projects",
+			"label": "Projects",
+			"labelSingular": "Project",
+			"description": "Completed builds. Each one gets a page at /our-projects/{slug} and a tile on the projects grid.",
+			"icon": "house-line",
+			"sortOrder": 2,
+			"supports": [
+				"drafts",
+				"revisions",
+				"preview",
+				"search"
+			],
+			"urlPattern": "/our-projects/{slug}",
+			"admin": {
+				"listColumns": [
+					"sort_order"
+				]
+			},
+			"fields": [
+				{
+					"slug": "title",
+					"label": "Name",
+					"type": "string",
+					"required": true,
+					"searchable": true
+				},
+				{
+					"slug": "heading",
+					"label": "Page heading",
+					"type": "string"
+				},
+				{
+					"slug": "intro",
+					"label": "Introduction",
+					"type": "text",
+					"searchable": true,
+					"options": {
+						"rows": 5
+					}
+				},
+				{
+					"slug": "cover",
+					"label": "Cover photo",
+					"type": "image"
+				},
+				{
+					"slug": "gallery_layout",
+					"label": "Gallery layout",
+					"type": "select",
+					"defaultValue": "grid",
+					"validation": {
+						"options": [
+							"grid",
+							"masonry"
+						]
+					}
+				},
+				{
+					"slug": "gallery",
+					"label": "Gallery",
+					"type": "repeater",
+					"validation": {
+						"subFields": [
+							{
+								"slug": "image",
+								"label": "Photo",
+								"type": "image",
+								"required": true
+							}
+						],
+						"maxItems": 60
+					}
+				},
+				{
+					"slug": "sort_order",
+					"label": "Order",
+					"type": "integer",
+					"defaultValue": 10,
+					"indexed": true
+				},
+				{
+					"slug": "search_title",
+					"label": "Search title",
+					"type": "string"
+				},
+				{
+					"slug": "search_description",
+					"label": "Search description",
+					"type": "text",
+					"options": {
+						"rows": 4
+					}
+				}
+			]
+		},
+		{
+			"slug": "site_details",
+			"label": "Site details",
+			"labelSingular": "Site details",
+			"description": "One entry holding the contact details, footer and the “Get in touch” panel used across the site.",
+			"icon": "gear",
+			"sortOrder": 3,
+			"routable": false,
+			"supports": [
+				"revisions"
+			],
+			"admin": {
+				"quickCreate": false
+			},
+			"fields": [
+				{
+					"slug": "title",
+					"label": "Name",
+					"type": "string",
+					"required": true
+				},
+				{
+					"slug": "location",
+					"label": "Location",
+					"type": "string"
+				},
+				{
+					"slug": "phone",
+					"label": "Phone",
+					"type": "string"
+				},
+				{
+					"slug": "email",
+					"label": "Email",
+					"type": "string"
+				},
+				{
+					"slug": "instagram_url",
+					"label": "Instagram link",
+					"type": "url"
+				},
+				{
+					"slug": "linkedin_url",
+					"label": "LinkedIn link",
+					"type": "url"
+				},
+				{
+					"slug": "acknowledgement",
+					"label": "Footer acknowledgement",
+					"type": "text",
+					"options": {
+						"rows": 3
+					}
+				},
+				{
+					"slug": "footer_logo",
+					"label": "Footer logo",
+					"type": "image"
+				},
+				{
+					"slug": "copyright",
+					"label": "Copyright line",
+					"type": "string"
+				},
+				{
+					"slug": "cta_heading",
+					"label": "Get in touch: heading",
+					"type": "string"
+				},
+				{
+					"slug": "cta_body",
+					"label": "Get in touch: text",
+					"type": "text",
+					"options": {
+						"rows": 3
+					}
+				},
+				{
+					"slug": "cta_button_label",
+					"label": "Get in touch: button",
+					"type": "string"
+				},
+				{
+					"slug": "cta_button_url",
+					"label": "Get in touch: button link",
+					"type": "url"
+				}
+			]
+		}
+	],
+	"menus": [
+		{
+			"name": "primary",
+			"label": "Main menu",
+			"items": [
+				{
+					"type": "custom",
+					"label": "Home",
+					"url": "/"
+				},
+				{
+					"type": "custom",
+					"label": "Our Process",
+					"url": "/our-process"
+				},
+				{
+					"type": "custom",
+					"label": "High Performance Building",
+					"url": "/high-performance-building"
+				},
+				{
+					"type": "custom",
+					"label": "Our Latest Projects",
+					"url": "/our-projects"
+				},
+				{
+					"type": "custom",
+					"label": "Our Team",
+					"url": "/our-team"
+				},
+				{
+					"type": "custom",
+					"label": "Contact",
+					"url": "/contact"
+				}
+			]
+		}
+	],
+	"redirects": [],
+	"content": {
+		"site_details": [
+			{
+				"id": "site-details",
+				"status": "published",
+				"data": {
+					"title": "Cayoosh Construction",
+					"location": "Whistler, British Columbia",
+					"phone": "(604) 967-1542",
+					"email": "seamus@cayoosh.ca",
+					"instagram_url": "http://instagram.com/cayooshconstructionltd",
+					"linkedin_url": "https://www.linkedin.com/in/seamus-quinn-a9b82742/?originalSubdomain=ca",
+					"acknowledgement": "Cayoosh Construction acknowledges that we operate on the traditional territory of the Skwxwú7mesh (Squamish) Nation and the Lil̓wat7úl (Lil’wat) Nation.",
+					"footer_logo": {
+						"$media": {
+							"file": "assets/cayoosh-construction-logo.webp",
+							"alt": ""
+						}
+					},
+					"copyright": "Copyright © 2024  Cayoosh Construction Limited",
+					"cta_heading": "Get in touch.",
+					"cta_body": "Whether it's an energy upgrade or renovation on your current house, or building a custom home from start to finish, we look forward to working with you on your next project.",
+					"cta_button_label": "Contact Us",
+					"cta_button_url": "/contact"
+				}
+			}
+		],
+		"projects": [
+			{
+				"id": "project-alpine-estate",
+				"slug": "alpine-estate",
+				"status": "published",
+				"data": {
+					"title": "Alpine Estate",
+					"heading": "Alpine Estate",
+					"intro": "Alpine Estate is a family-focused home designed to blend luxury with comfort, offering an expansive indoor-outdoor living experience. This house showcases exceptional attention to detail in both its interior and exterior spaces, reflecting a masterful blend of design, craftsmanship, and execution.",
+					"cover": {
+						"$media": {
+							"file": "assets/cayooshconstruction-alpineestate-exterior1.webp",
+							"alt": ""
+						}
+					},
+					"gallery_layout": "masonry",
+					"gallery": [
+						{
+							"image": {
+								"$media": {
+									"file": "assets/cayooshconstruction-alpineestate-bathroom.webp",
+									"alt": ""
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"file": "assets/cayooshconstruction-alpineestate-exterior1-2.webp",
+									"alt": ""
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"file": "assets/cayooshconstruction-mountainview-kitchen.webp",
+									"alt": ""
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"file": "assets/cayooshconstruction-alpineestate-walldetails.webp",
+									"alt": ""
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"file": "assets/cayooshconstruction-alpineestate-livingroom.webp",
+									"alt": ""
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"file": "assets/cayooshconstruction-alpineestate-dual-2.webp",
+									"alt": ""
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"file": "assets/cayooshconstruction-alpineestate-staircase.webp",
+									"alt": ""
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"file": "assets/cayooshconstruction-alpineestate-kitchen4.webp",
+									"alt": ""
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"file": "assets/cayooshconstruction-alpineestate-kitchen2.webp",
+									"alt": ""
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"file": "assets/cayooshconstruction-alpineestate-patio.webp",
+									"alt": ""
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"file": "assets/cayooshconstruction-alpineestate-kitchen3.webp",
+									"alt": ""
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"file": "assets/cayooshconstruction-alpineestate-mediaroomdetail.webp",
+									"alt": ""
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"file": "assets/cayooshconstruction-alpineestate-bunk1.webp",
+									"alt": ""
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"file": "assets/cayooshconstruction-alpineestate-entrance2.webp",
+									"alt": ""
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"file": "assets/cayooshconstruction-alpineestate-bedroom.webp",
+									"alt": ""
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"file": "assets/cayooshconstruction-alpineestate-mediaroom.webp",
+									"alt": ""
+								}
+							}
+						}
+					],
+					"sort_order": 10,
+					"search_description": "Alpine Estate by Cayoosh Construction is a family-focused home that combines luxury and comfort, ideal for Whistler living. This residence features expansive indoor-outdoor spaces and meticulous attention to detail in both interior and exterior design. Reflecting exceptional craftsmanship and execution, Alpine Estate is a prime example of Cayoosh Construction's commitment to quality and modern living in the Whistler area."
+				}
+			},
+			{
+				"id": "project-emerald-lakehouse",
+				"slug": "emerald-lakehouse",
+				"status": "published",
+				"data": {
+					"title": "Emerald Lakehouse",
+					"heading": "The Emerald Lakehouse",
+					"intro": "Nestled on Whistler's iconic Green Lake, this custom-designed lakehouse offers unparalleled views of both the lake and the Whistler mountain range. The home is crafted to maximize the breathtaking vistas and enjoy the calming presence of the lake from every corner of the house.",
+					"cover": {
+						"$media": {
+							"file": "assets/cayooshconstruction-emarallakehouse.webp",
+							"alt": ""
+						}
+					},
+					"gallery_layout": "grid",
+					"gallery": [
+						{
+							"image": {
+								"$media": {
+									"file": "assets/cayooshconstruction-contact-us.webp",
+									"alt": ""
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"file": "assets/cayooshconstruction-lakehouse-bath.webp",
+									"alt": ""
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"file": "assets/cayooshconstruction-lakehouse-outdoor-2.webp",
+									"alt": ""
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"file": "assets/cayooshconstruction-lakehouse-build.webp",
+									"alt": ""
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"file": "assets/cayooshconstruction-lakehouse-entrance.webp",
+									"alt": ""
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"file": "assets/cayooshconstruction-lakehouse-kitchen2.webp",
+									"alt": ""
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"file": "assets/cayooshconstruction-lakehouse-details.webp",
+									"alt": ""
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"file": "assets/cayooshconstruction-lakehouse-garage.webp",
+									"alt": ""
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"file": "assets/cayooshconstruction-lakehouse-living2.webp",
+									"alt": ""
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"file": "assets/cayooshconstruction-lakehouse-livingoutdoor.webp",
+									"alt": ""
+								}
+							}
+						}
+					],
+					"sort_order": 20,
+					"search_description": "The Emerald Lakehouse by Cayoosh Construction is a custom-designed home located on Whistler's iconic Green Lake. Offering stunning views of the lake and the Whistler mountain range, this elegant lakehouse is crafted to maximize its natural surroundings. The chic architecture provides serene vistas from every corner, allowing you to fully enjoy the calming beauty of the lake and mountains"
+				}
+			},
+			{
+				"id": "project-wedgewoods",
+				"slug": "wedgewoods",
+				"status": "published",
+				"data": {
+					"title": "Wedgewoods",
+					"heading": "Wedgewoods",
+					"intro": "This modern build features an expansive living room and an open-concept design that maximizes communal spaces and panoramic views. The architecture is crafted for connectivity and comfort, making it an ideal setting for relaxation and social gatherings.",
+					"cover": {
+						"$media": {
+							"file": "assets/cayooshconstruction-wedgewoods.webp",
+							"alt": ""
+						}
+					},
+					"gallery_layout": "grid",
+					"gallery": [
+						{
+							"image": {
+								"$media": {
+									"file": "assets/cayooshconstruction-wedgewood-space.webp",
+									"alt": ""
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"file": "assets/cayooshconstruction-wedgewood-kitchen.webp",
+									"alt": ""
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"file": "assets/cayooshconstruction-wedgewood-detail.webp",
+									"alt": ""
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"file": "assets/cayooshconstruction-wedgewood-stairprofile.webp",
+									"alt": ""
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"file": "assets/cayooshconstruction-wedgewood-golf.webp",
+									"alt": ""
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"file": "assets/cayooshconstruction-whistlercustom-build.webp",
+									"alt": ""
+								}
+							}
+						}
+					],
+					"sort_order": 30,
+					"search_description": "The Wedgewoods project by Cayoosh Construction is a modern build featuring an expansive living room and open-concept design that maximizes communal spaces and panoramic views. Designed for comfort and connectivity, this home is perfect for both relaxation and social gatherings, offering a seamless blend of style and functionality.",
+					"search_title": "Wedgewoods Project"
+				}
+			},
+			{
+				"id": "project-alpine",
+				"slug": "alpine",
+				"status": "published",
+				"data": {
+					"title": "Alpine Modern",
+					"heading": "The Alpine Modern",
+					"intro": "This custom-built home showcases stunning architecture with its modern aesthetic. Beautifully and seamlessly integrated into the mountain landscape, the home's design harmonizes with its natural surroundings, enhancing the connection between architecture and environment.",
+					"cover": {
+						"$media": {
+							"file": "assets/cayooshconstruction-whistleralpine2.webp",
+							"alt": ""
+						}
+					},
+					"gallery_layout": "grid",
+					"gallery": [
+						{
+							"image": {
+								"$media": {
+									"file": "assets/cayooshconstruction-outdoor.webp",
+									"alt": ""
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"file": "assets/cayooshconstruction-alpineexterior.webp",
+									"alt": ""
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"file": "assets/cayooshconstruction-kitchen2.webp",
+									"alt": ""
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"file": "assets/cayooshconstruction-alpine-dinning.webp",
+									"alt": ""
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"file": "assets/cayooshconstruction-kitchenisland.webp",
+									"alt": ""
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"file": "assets/cayooshconstruction-alpine-living.webp",
+									"alt": ""
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"file": "assets/cayooshconstruction-alpinekitchen.webp",
+									"alt": ""
+								}
+							}
+						}
+					],
+					"sort_order": 40,
+					"search_description": "The Alpine Project by Cayoosh Construction is a custom-built home that showcases stunning modern architecture. Seamlessly integrated into Whistler's mountain landscape, the home’s design harmonizes with its natural surroundings, creating a strong connection between architecture and the environment. This project highlights our expertise in delivering both aesthetic appeal and functionality in mountain homes",
+					"search_title": "Alpine Project"
+				}
+			}
+		],
+		"pages": [
+			{
+				"id": "page-home",
+				"slug": "home",
+				"status": "published",
+				"data": {
+					"title": "Home",
+					"sections": [
+						{
+							"_type": "hero",
+							"_version": 1,
+							"_key": "home-1-hero",
+							"heading": "Conscious Architecture Meets High Performance Building.",
+							"image": {
+								"$media": {
+									"file": "assets/fva-whistler-1371.webp",
+									"alt": ""
+								}
+							},
+							"style": "banner",
+							"overlay": 15
+						},
+						{
+							"_type": "marquee",
+							"_version": 1,
+							"_key": "home-2-marquee",
+							"items": [
+								{
+									"text": "News"
+								},
+								{
+									"text": "Featured in Dwell Magazine"
+								},
+								{
+									"text": "How They Pulled It Off: Moving a 1970s Craftsman to a New Location"
+								}
+							],
+							"link_url": "https://www.dwell.com/article/how-they-pulled-it-off-moving-a-1970s-craftsman-to-a-new-location-5def78e9"
+						},
+						{
+							"_type": "intro",
+							"_version": 1,
+							"_key": "home-3-intro",
+							"heading": "Innovation.  Quality Craftsmanship.",
+							"body": "Cayoosh Construction Limited is a Whistler based family business specializing in custom homes and renovations. We value good communication and efficiency. Although there is considerable opportunity within the construction industry in the Sea to Sky corridor, we prioritize quality control and management continuity over exponential growth. In a quickly changing construction industry, we continue to focus on staying ahead of the curve on building code changes, new technologies, and new building techniques and processes.",
+							"image": {
+								"$media": {
+									"file": "assets/cayooshconstruction-wedgewood-stair.webp",
+									"alt": ""
+								}
+							}
+						},
+						{
+							"_type": "collage",
+							"_version": 1,
+							"_key": "home-4-collage",
+							"image_one": {
+								"$media": {
+									"file": "assets/cayooshconstruction-lakehouse-outdoor.webp",
+									"alt": ""
+								}
+							},
+							"image_two": {
+								"$media": {
+									"file": "assets/cayooshconstruction-kitchenisland.webp",
+									"alt": ""
+								}
+							},
+							"image_three": {
+								"$media": {
+									"file": "assets/cayooshconstruction-wedgewood-bathroom.webp",
+									"alt": ""
+								}
+							},
+							"link_url": "/our-projects"
+						},
+						{
+							"_type": "testimonial",
+							"_version": 1,
+							"_key": "home-5-testimonial",
+							"quote": "“We did a very technical build with Seamus and his crew, which involved many unique building techniques and unusual materials. Seamus approached every detail methodically while always keeping us involved in every aspect of the decision making. We always felt a great sense of control & understanding which comes only from this level of involvement and partnership.”",
+							"attribution": "- Sean & Stephanie Crozier",
+							"image": {
+								"$media": {
+									"file": "assets/whistler-custom-home-interior-space-kitchen-bar-opening-to-l.webp",
+									"alt": ""
+								}
+							}
+						},
+						{
+							"_type": "cta",
+							"_version": 1,
+							"_key": "home-6-cta",
+							"heading": "Get in touch.",
+							"body": "Whether it's an energy upgrade or renovation on your current house, or building a custom home from start to finish, we look forward to working with you on your next project.",
+							"button_label": "Contact Us",
+							"button_url": "/contact"
+						}
+					],
+					"search_description": "Cayoosh Construction Limited is a Whistler based family business specializing in custom homes and renovation, where conscious architecture meets high performance building technologies and processes."
+				}
+			},
+			{
+				"id": "page-our-process",
+				"slug": "our-process",
+				"status": "published",
+				"data": {
+					"title": "Our Process",
+					"sections": [
+						{
+							"_type": "process",
+							"_version": 1,
+							"_key": "our-process-1-process",
+							"heading": "Our Process",
+							"steps": [
+								{
+									"title": "Communication",
+									"image": {
+										"$media": {
+											"file": "assets/cayooshconstruction-communication.webp",
+											"alt": ""
+										}
+									},
+									"number_image": {
+										"$media": {
+											"file": "assets/copy-of-cc-team-website-banner.webp",
+											"alt": ""
+										}
+									},
+									"body": "The management team members at Cayoosh Construction have many communication tools at our disposal to ensure that our clients are well informed and empowered to make decisions, big or small.  Regular email communication of details including cost and schedule specifics are critical to an efficient project, with follow up meetings taking place on site or virtually by Zoom or FaceTime.  We also work with design firms who have the capability to generate photo rendered 3D images that are accurate to the finest detail. In any case we are flexible, and can tailor our process to suit your needs."
+								},
+								{
+									"title": "Attention to Detail",
+									"image": {
+										"$media": {
+											"file": "assets/cayoosh-custom-built-staircase-whistler-home.webp",
+											"alt": ""
+										}
+									},
+									"number_image": {
+										"$media": {
+											"file": "assets/copy-of-cc-team-website-banner-1.webp",
+											"alt": ""
+										}
+									},
+									"body": "Modern, highly designed architectural homes often bring many materials and systems together in one space. These systems and materials need to work seamlessly together to create the clean lines in spaces which often rely on minimalist design.  Although these spaces seem simple, the details behind the scenes can be complex.  At Cayoosh Construction we embrace the challenge and are well qualified to work with architects and designers at a high level.  Cayoosh Construction has an experienced team of employees and extensive field of sub-contractors and suppliers who are not only capable, but are excited to execute the details of highly designed architectural homes."
+								},
+								{
+									"title": "Start to Finish",
+									"image": {
+										"$media": {
+											"file": "assets/cayoosh-construction-building-site.webp",
+											"alt": ""
+										}
+									},
+									"number_image": {
+										"$media": {
+											"file": "assets/cc-team-website-banner-2.webp",
+											"alt": ""
+										}
+									},
+									"body": "Well versed in the challenges of developing a mountain property, we prefer to be involved in your construction process from the day you start looking at properties and options.  With no obligation to engage us, we are happy to be involved in the evaluation of any potential building site or renovation.  As you move into the planning and design phase of your project, we can help to identify the different aspects of your build and how they relate to your schedule and budget."
+								}
+							]
+						},
+						{
+							"_type": "hero",
+							"_version": 1,
+							"_key": "our-process-2-hero",
+							"heading": "“We were pleased to recently represent the buyer on the sale of a magnificently built home by Cayoosh Construction.”",
+							"attribution": "- Dani O’Neil, Whistler Real Estate Company",
+							"image": {
+								"$media": {
+									"file": "assets/cc-team-website-banner-1.webp",
+									"alt": ""
+								}
+							},
+							"style": "quote",
+							"overlay": 15
+						}
+					],
+					"search_description": "Cayoosh Construction streamlines the building process with expert craftsmanship and transparency. From concept to completion, we deliver high-quality, on-time results for Whistler’s residential and commercial projects. Start building with us today."
+				}
+			},
+			{
+				"id": "page-high-performance-building",
+				"slug": "high-performance-building",
+				"status": "published",
+				"data": {
+					"title": "High Performance Building",
+					"sections": [
+						{
+							"_type": "hero",
+							"_version": 1,
+							"_key": "high-performance-building-1-hero",
+							"heading": "High Performance Building",
+							"image": {
+								"$media": {
+									"file": "assets/fva-whistler-0010.webp",
+									"alt": ""
+								}
+							},
+							"style": "title",
+							"overlay": 16
+						},
+						{
+							"_type": "feature_cards",
+							"_version": 1,
+							"_key": "high-performance-building-2-feature-cards",
+							"cards": [
+								{
+									"title": "Leading Edge Technologies",
+									"image": {
+										"$media": {
+											"file": "assets/cayooshconstruction-alpine-living.webp",
+											"alt": ""
+										}
+									},
+									"body": "Cayoosh Construction is well versed in modern building technology and energy efficient building. The management team at Cayoosh Construction takes pride in being at the cutting edge of a constantly evolving construction landscape. We live in an exciting, transformational time in the building industry where energy efficiency and sustainability are driving significant change."
+								},
+								{
+									"title": "Integrative Approach",
+									"image": {
+										"$media": {
+											"file": "assets/cayoosh-construction-drafting-plans.webp",
+											"alt": ""
+										}
+									},
+									"body": "This transformational time requires an integrative approach to building assemblies and Cayoosh Construction employs this approach in everything we do.  Whether building to the current provincial step code requirements or going above and beyond net zero construction, we have the experience and knowledge to optimize the assemblies for any building project."
+								},
+								{
+									"title": "Exceeding Industry Standards",
+									"image": {
+										"$media": {
+											"file": "assets/cayoosh-construction-building-site-highlighting-modern-techn.webp",
+											"alt": ""
+										}
+									},
+									"body": "In addition to many hours of continued professional development focused on new building techniques and technologies, we have also recently completed a British Columbia step code 4 duplex build with excellent performance results including a 0.64 ACH air tightness rating."
+								}
+							]
+						},
+						{
+							"_type": "quote",
+							"_version": 1,
+							"_key": "high-performance-building-3-quote",
+							"quote": "If you are looking for a High Performance Builder, Seamus and the team at Cayoosh is the right builder for you.  We’ve really enjoyed working with Cayoosh over the years, as they understand Building Science, attention to detail and are strong believers in the Integrated design process right from the start of the project.  Cayoosh truly are professionals, they build quality homes that are not only extremely energy efficient, but comfortable, healthy, and durable to live in.",
+							"attribution": "— Luke Dolan, Principal.  Capital Home Energy Inc."
+						},
+						{
+							"_type": "feature",
+							"_version": 1,
+							"_key": "high-performance-building-4-feature",
+							"title": "High Performance Renovations",
+							"image": {
+								"$media": {
+									"file": "assets/cayoosh-fall-2022-10-of-16.webp",
+									"alt": ""
+								}
+							},
+							"body": "As British Columbia transitions to renewable energy and more efficient building techniques, we have the expertise, resources, and professional consultants available to renovate your home from its current state to a modern net zero home.",
+							"button_label": "Learn More",
+							"button_url": "/contact"
+						}
+					],
+					"search_description": "Cayoosh Construction leads in modern building technology and energy-efficient construction in Whistler. Our expert team stays at the forefront of innovation, delivering high-performance homes that reduce energy costs and environmental impact. Trust us for cutting-edge solutions in sustainable building."
+				}
+			},
+			{
+				"id": "page-our-projects",
+				"slug": "our-projects",
+				"status": "published",
+				"data": {
+					"title": "Our Latest projects",
+					"sections": [
+						{
+							"_type": "projects_grid",
+							"_version": 1,
+							"_key": "our-projects-1-projects-grid",
+							"intro": "Take a look at some of our recent work at Cayoosh Construction. From custom homes to renovations, each project reflects our commitment to quality and craftsmanship. We’re proud of the relationships we build with clients and the lasting results we create together."
+						},
+						{
+							"_type": "cta",
+							"_version": 1,
+							"_key": "our-projects-2-cta",
+							"heading": "Get in touch.",
+							"body": "Whether it's an energy upgrade or renovation on your current house, or building a custom home from start to finish, we look forward to working with you on your next project.",
+							"button_label": "Contact Us",
+							"button_url": "/contact"
+						}
+					],
+					"search_description": "Take a look at some of our recent work at Cayoosh Construction. From custom homes to renovations, each project reflects our commitment to quality and craftsmanship. We’re proud of the relationships we build with clients and the lasting results we create together."
+				}
+			},
+			{
+				"id": "page-our-team",
+				"slug": "our-team",
+				"status": "published",
+				"data": {
+					"title": "Our Team",
+					"sections": [
+						{
+							"_type": "team",
+							"_version": 1,
+							"_key": "our-team-1-team",
+							"heading": "The Cayoosh Team",
+							"body": "At Cayoosh Construction we have a team of experienced, motivated carpenters and apprentices and many on our team have worked with the company for years.  We are proud to offer a comprehensive benefits package to our employees and their families. In a town where staff turnover is common, we have maintained a stable workforce of great people, many of whom are putting down permanent roots in the community.\n\nWe value our employees and strive to create a work environment that is safe and encourages learning. We are a member of the I.T.A. apprenticeship program for employees who choose to pursue a red seal designation, and encourage and support employees who endeavour to further their training and expertise in home building.",
+							"image_one": {
+								"$media": {
+									"file": "assets/cayoosh-construction-team-lead-seamus-quinn.webp",
+									"alt": ""
+								}
+							},
+							"image_two": {
+								"$media": {
+									"file": "assets/cayoosh-crew-team-shot.webp",
+									"alt": ""
+								}
+							}
+						},
+						{
+							"_type": "notice",
+							"_version": 1,
+							"_key": "our-team-2-notice",
+							"heading": "Interested in joining us?",
+							"body": "We are always on the look out for new talent to join our team.  At Cayoosh Construction, we offer competitive wages, apprentice opportunities under a Red Seal carpenter, comprehensive benefits package and the 20 cm rule - whenever possible.",
+							"button_label": "Contact Us",
+							"button_url": "mailto:seamus@cayoosh.ca?subject=Employment%20Opportunities%20with%20Cayoosh"
+						}
+					],
+					"search_description": "Cayoosh Construction is powered by a skilled and motivated team of experienced carpenters and apprentices in Whistler. Our dedicated professionals bring top-quality craftsmanship to every project, ensuring superior results for residential and commercial builds."
+				}
+			},
+			{
+				"id": "page-contact",
+				"slug": "contact",
+				"status": "published",
+				"data": {
+					"title": "Contact",
+					"sections": [
+						{
+							"_type": "hero",
+							"_version": 1,
+							"_key": "contact-1-hero",
+							"heading": "Contact us",
+							"image": {
+								"$media": {
+									"file": "assets/cayooshconstruction-alpineestate-dual.webp",
+									"alt": ""
+								}
+							},
+							"style": "title-short",
+							"overlay": 28
+						},
+						{
+							"_type": "contact_form",
+							"_version": 1,
+							"_key": "contact-2-contact-form",
+							"heading": "Ready for your next project?",
+							"subheading": "Get in touch"
+						},
+						{
+							"_type": "contact_details",
+							"_version": 1,
+							"_key": "contact-3-contact-details",
+							"hours_heading": "Hours",
+							"hours": "Monday–Friday\n8 am–5 pm"
+						},
+						{
+							"_type": "badges",
+							"_version": 1,
+							"_key": "contact-4-badges",
+							"items": [
+								{
+									"image": {
+										"$media": {
+											"file": "assets/red-seal-carpenter-badge.webp",
+											"alt": ""
+										}
+									},
+									"link_url": "http://www.red-seal.ca/",
+									"size": "small"
+								},
+								{
+									"image": {
+										"$media": {
+											"file": "assets/licensed-residential-builder.webp",
+											"alt": ""
+										}
+									},
+									"link_url": "https://www.bchousing.org/home",
+									"size": "large"
+								},
+								{
+									"image": {
+										"$media": {
+											"file": "assets/energuide-logo.webp",
+											"alt": ""
+										}
+									},
+									"link_url": "https://www.nrcan.gc.ca/energy-efficiency/energuide/12523",
+									"size": "strip"
+								}
+							]
+						}
+					],
+					"search_description": "Contact Cayoosh Construction to discuss your next project, from custom home builds to high-performance renovations in Whistler. Our team is ready to bring your vision to life with expert craftsmanship and energy-efficient solutions."
+				}
+			}
+		]
+	}
+}

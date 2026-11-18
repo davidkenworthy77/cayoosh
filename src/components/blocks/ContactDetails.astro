@@ -1,0 +1,19 @@
+---
+import { getSiteDetails, toParagraphs } from "../../lib/site";
+
+const { value } = Astro.props;
+const { details, cacheHint } = await getSiteDetails();
+if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
+const hours = toParagraphs(value.hours).flat();
+const contact = [details?.phone, details?.email].filter(Boolean);
+---
+
+<section class="section container--narrow contact-info">
+	{details?.location && <p>{details.location}</p>}
+	<p>
+		{value.hours_heading && <strong>{value.hours_heading}</strong>}
+		{hours.map((line) => <><br />{line}</>)}
+		{contact.length > 0 && <><br /><br /></>}
+		{contact.map((line, i) => <>{i > 0 && <br />}{line}</>)}
+	</p>
+</section>

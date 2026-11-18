@@ -1,0 +1,32 @@
+---
+import Img from "../Img.astro";
+
+const { value, index } = Astro.props;
+const style: string = value.style ?? "title";
+const variant: Record<string, string> = {
+	banner: "hero--home",
+	title: "hero--title",
+	"title-short": "hero--title hero--contact",
+	quote: "hero--quote",
+};
+const overlay = Math.min(Math.max(value.overlay ?? 15, 0), 100) / 100;
+---
+
+<section class={`hero section--dark ${variant[style] ?? variant.title}`}>
+	<Img image={value.image} fill sizes="100vw" class="hero-image" priority={index === 0} />
+	<div class="hero-overlay" style={`opacity:${overlay}`}></div>
+	<div class="hero-content">
+		{style === "banner" && <h4>{value.heading}</h4>}
+		{
+			style === "quote" && (
+				<>
+					<blockquote>
+						<h4>{value.heading}</h4>
+					</blockquote>
+					{value.attribution && <p>{value.attribution}</p>}
+				</>
+			)
+		}
+		{style !== "banner" && style !== "quote" && <h2>{value.heading}</h2>}
+	</div>
+</section>
